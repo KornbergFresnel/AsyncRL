@@ -69,7 +69,7 @@ class AgentRunner:
         for step_cnt in counter:
             obses.append(obs)
             net_states.append([e.squeeze(0) for e in net_state])
-            obs = torch.from_numpy(obs).float()
+            obs = torch.from_numpy(obs).float().to(self.device)
             value, logits, net_state = self.model(obs.unsqueeze(0), net_state)
 
             dist = Categorical(logits=logits)
@@ -104,8 +104,8 @@ class AgentRunner:
         if dones[-1]:
             values.append(torch.zeros(1).to(self.device).squeeze())
         else:
-            obs = torch.from_numpy(obs).float()
-            value, _, _, _, _ = self.act(obs.unsqueeze(0), net_state)
+            obs = torch.from_numpy(obs).float().to(self.device)
+            value, _, _ = self.model(obs.unsqueeze(0), net_state)
             values.append(value.squeeze())
 
         return EpisodeState(
