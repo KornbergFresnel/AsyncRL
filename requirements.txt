@@ -1,0 +1,12 @@
+grpcio==1.51.3
+grpcio-tools==1.51.3
+gym==0.26.2
+torch==2.0.0
+black==23.1.0
+torchscale>=0.2.0
+wandb
+transformers
+readerwriterlock
+opencv-python
+tensorboardX
+shutup
